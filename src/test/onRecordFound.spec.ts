@@ -2,22 +2,22 @@ import onRecordFound from "../onRecordFound";
 import {} from "mocha";
 import sinon from "sinon";
 import nock from "nock";
-import jsc from "magda-typescript-common/src/test/jsverify";
-import { Record } from "magda-typescript-common/src/generated/registry/api";
+import jsc from "jsverify";
 import _ from "lodash";
 import {
     recordArbWithDistArbs,
     stringArb,
-    arbFlatMap
-} from "magda-typescript-common/src/test/arbitraries";
+    arbFlatMap,
+    Record
+} from "@magda/arbitraries";
 import {
     openLicenseArb,
     formatArb,
     recordForHighestStarCountArb
 } from "./arbitraries";
-import { encodeURIComponentWithApost } from "magda-typescript-common/src/test/util";
+import { encodeURIComponentWithApost } from "@magda/utils";
 import { OKFN_LICENSES, ZERO_STAR_LICENSES, FORMAT_EXAMPLES } from "./examples";
-import AuthorizedRegistryClient from "magda-typescript-common/src/registry/AuthorizedRegistryClient";
+import { AuthorizedRegistryClient } from "@magda/minion-sdk";
 
 describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) {
     this.timeout(10000);

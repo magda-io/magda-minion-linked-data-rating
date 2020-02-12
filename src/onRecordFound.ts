@@ -1,17 +1,16 @@
 import _ from "lodash";
 
-import { Record } from "magda-typescript-common/src/generated/registry/api";
-import unionToThrowable from "magda-typescript-common/src/util/unionToThrowable";
-import AuthorizedRegistryClient from "magda-typescript-common/src/registry/AuthorizedRegistryClient";
+import { AuthorizedRegistryClient, Record } from "@magda/minion-sdk";
+import { unionToThrowable } from "@magda/utils";
 import linkedDataAspectDef from "./linkedDataAspectDef";
-import datasetQualityAspectDef from "magda-minion-framework/src/common-aspect-defs/datasetQualityAspectDef";
+import datasetQualityAspectDef from "./datasetQualityAspectDef";
 import openLicenses from "./openLicenses";
 import formatStars from "./openFormats";
 
 const openLicenseRegex = stringsToRegex(openLicenses);
 const openFormatRegexes = _(formatStars)
     .mapValues(stringsToRegex)
-    .toPairs<RegExp>()
+    .toPairs()
     .map(
         ([starCount, regex]) => [parseInt(starCount), regex] as [number, RegExp]
     )
