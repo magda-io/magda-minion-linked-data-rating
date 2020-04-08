@@ -6,18 +6,14 @@ import onRecordFound from "./onRecordFound";
 const ID = "minion-linked-data-rating";
 const argv = commonYargs(6109, "http://localhost:6109");
 
-function sleuthLinkedData() {
-    minion({
-        argv,
-        id: ID,
-        aspects: ["dataset-distributions"],
-        optionalAspects: ["dataset-format", "source-link-status"],
-        writeAspectDefs: [linkedDataAspectDef, datasetQualityAspectDef],
-        onRecordFound
-    }).catch(e => {
-        console.error("Error: " + e.message, e);
-        process.exit(1);
-    });
-}
-
-sleuthLinkedData();
+minion({
+    argv,
+    id: ID,
+    aspects: ["dataset-distributions"],
+    optionalAspects: ["dataset-format", "source-link-status"],
+    writeAspectDefs: [linkedDataAspectDef, datasetQualityAspectDef],
+    onRecordFound
+}).catch(e => {
+    console.error("Error: " + e.message, e);
+    process.exit(1);
+});
