@@ -31,7 +31,7 @@
     "chai": "^4.2.0",
     "mocha": "^7.0.1",
     "jsverify": "^0.8.2",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.19",
     "nock": "^9.0.14",
     "sinon": "^8.1.1",
     "typescript": "^3.7.2"
@@ -41,7 +41,7 @@
     "@magda/registry-aspects": "^0.0.57-0",
     "@magda/utils": "^0.0.57-0",
     "@magda/arbitraries": "^0.0.57-0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.19"
   },
   "config": {
     "registryUrl": "http://localhost:6101/v0",
