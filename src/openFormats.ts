@@ -1,5 +1,14 @@
 const FORMAT_STARS: { [stars: number]: string[] } = {
-    2: ["xls", "xlsx", "mdb", "esri rest", "excel"],
+    2: [
+        "xls",
+        "xlsx",
+        "mdb",
+        "esri rest",
+        "esri mapserver",
+        "esri featureserver",
+        "esri scenseserver",
+        "excel"
+    ],
     3: [
         "csv",
         "comma separated values",
@@ -16,7 +25,8 @@ const FORMAT_STARS: { [stars: number]: string[] } = {
         "xml",
         "shp",
         "rss",
-        "gpx"
+        "gpx",
+        "GeoTiff"
     ],
     4: [
         "csv geo au",
