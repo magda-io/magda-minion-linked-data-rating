@@ -31,7 +31,7 @@ export const FORMAT_EXAMPLES: { [a: number]: string[] } = {
         "MS EXCEL",
         "ESRI MapServer",
         "ESRI FeatureServer",
-        "Esri ScenseServer"
+        "ESRI SCENESERVER"
     ],
     3: ["CSV", "Comma-Separated Values", "WMS", "WFS", "GeoTiff"],
     4: ["Csv-geo-au", "ASC"]

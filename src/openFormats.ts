@@ -4,9 +4,9 @@ const FORMAT_STARS: { [stars: number]: string[] } = {
         "xlsx",
         "mdb",
         "esri rest",
-        "esri mapserver",
-        "esri featureserver",
-        "esri scenseserver",
+        "ESRI mapServer",
+        "ESRI featureServer",
+        "ESRI SceneServer",
         "excel"
     ],
     3: [
