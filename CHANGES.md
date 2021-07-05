@@ -4,3 +4,5 @@
 
 -   #4 Make GeoTiff a 3 Star format
 -   #7 Update format list according to format minion improvement
+-   Make docker image version default to chart version
+-   Upgrade CI scripts
