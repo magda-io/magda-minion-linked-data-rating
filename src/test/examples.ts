@@ -25,7 +25,14 @@ export const ZERO_STAR_LICENSES = [
 export const ZERO_STAR_FORMATS = [undefined, "", "pdf", "doc", "png", "tiff"];
 
 export const FORMAT_EXAMPLES: { [a: number]: string[] } = {
-    2: ["XSLX (Microsoft Excel)", "Excel", "MS EXCEL"],
-    3: ["CSV", "Comma-Separated Values"],
+    2: [
+        "XSLX (Microsoft Excel)",
+        "Excel",
+        "MS EXCEL",
+        "ESRI MapServer",
+        "ESRI FeatureServer",
+        "ESRI SCENESERVER"
+    ],
+    3: ["CSV", "Comma-Separated Values", "WMS", "WFS", "GeoTiff"],
     4: ["Csv-geo-au", "ASC"]
 };

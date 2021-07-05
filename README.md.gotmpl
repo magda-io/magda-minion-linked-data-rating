@@ -18,7 +18,7 @@ Development releases (per commit) are also available from [GitHub Registry](http
 
 ### Helm Chart
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square)
+{{ template "chart.badgesSection" . }}
 
 It's recommanded to deploy minions with as [dependencies](https://helm.sh/docs/topics/chart_best_practices/dependencies/) of a Magda helm deployment. Example can be found from [here](https://github.com/magda-io/magda-config).
 
@@ -32,22 +32,10 @@ The [helm chart](https://helm.sh/docs/topics/charts/) for this minion is auto re
 helm repo add magda-io https://charts.magda.io
 ```
 
-## Requirements
+{{ template "chart.maintainersSection" . }}
 
-Kubernetes: `>= 1.14.0-0`
+{{ template "chart.requirementsSection" . }}
 
-## Values
+{{ template "chart.valuesHeader" . }}
 
-| Key                          | Type   | Default                                  | Description |
-| ---------------------------- | ------ | ---------------------------------------- | ----------- |
-| defaultAdminUserId           | string | `"00000000-0000-4000-8000-000000000000"` |             |
-| defaultImage.imagePullSecret | bool   | `false`                                  |             |
-| defaultImage.pullPolicy      | string | `"IfNotPresent"`                         |             |
-| defaultImage.repository      | string | `"docker.io/data61"`                     |             |
-| global.image                 | object | `{}`                                     |             |
-| global.minions.image         | object | `{}`                                     |             |
-| global.rollingUpdate         | object | `{}`                                     |             |
-| image.name                   | string | `"magda-minion-linked-data-rating"`      |             |
-| resources.limits.cpu         | string | `"100m"`                                 |             |
-| resources.requests.cpu       | string | `"10m"`                                  |             |
-| resources.requests.memory    | string | `"30Mi"`                                 |             |
+{{ template "chart.valuesTable" . }}
