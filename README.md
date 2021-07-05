@@ -18,7 +18,7 @@ Development releases (per commit) are also available from [GitHub Registry](http
 
 ### Helm Chart
 
-![Version: 0.0.57-0](https://img.shields.io/badge/Version-0.0.57--0-informational?style=flat-square)
+![Version: 1.0.0-alpha.0](https://img.shields.io/badge/Version-1.0.0--alpha.0-informational?style=flat-square)
 
 It's recommanded to deploy minions with as [dependencies](https://helm.sh/docs/topics/chart_best_practices/dependencies/) of a Magda helm deployment. Example can be found from [here](https://github.com/magda-io/magda-config).
 
@@ -44,7 +44,6 @@ Kubernetes: `>= 1.14.0-0`
 | defaultImage.imagePullSecret | bool   | `false`                                  |             |
 | defaultImage.pullPolicy      | string | `"IfNotPresent"`                         |             |
 | defaultImage.repository      | string | `"docker.io/data61"`                     |             |
-| defaultImage.tag             | string | `"0.0.57-0"`                             |             |
 | global.image                 | object | `{}`                                     |             |
 | global.minions.image         | object | `{}`                                     |             |
 | global.rollingUpdate         | object | `{}`                                     |             |
