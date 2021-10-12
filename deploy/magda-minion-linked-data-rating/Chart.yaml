@@ -8,3 +8,9 @@ sources:
   [
     "https://github.com/magda-io/magda-minion-linked-data-rating"
   ]
+annotations:
+  magdaModuleType: "minion"
+dependencies:
+  - name: magda-common
+    version: "1.0.0-alpha.4"
+    repository: "https://charts.magda.io"

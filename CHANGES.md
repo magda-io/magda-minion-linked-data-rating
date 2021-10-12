@@ -3,6 +3,7 @@
 # 1.1.0
 
 -   Upgrade dependencies
+-   Related to https://github.com/magda-io/magda/issues/3229, Use magda-common for docker image related logic
 
 # 1.0.0
 
