@@ -409,7 +409,7 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
     }
 
     type StarCountArgs = {
-        record: Record;
+        record: Omit<Record, "authnReadPolicyId">;
         starCount?: number;
         starCountFn?: (num: number) => boolean;
     };
@@ -443,7 +443,9 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
             .reply(201);
     }
 
-    function buildRecordWithDist(dist?: any): Record {
+    function buildRecordWithDist(
+        dist?: any
+    ): Omit<Record, "authnReadPolicyId"> {
         return {
             id: "1",
             name: "name",

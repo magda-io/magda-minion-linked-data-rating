@@ -18,7 +18,7 @@ const openFormatRegexes = _(formatStars)
     .value();
 
 export default async function onRecordFound(
-    record: Record,
+    record: Omit<Record, "authnReadPolicyId">,
     registry: AuthorizedRegistryClient
 ) {
     const theTenantId = record.tenantId;
