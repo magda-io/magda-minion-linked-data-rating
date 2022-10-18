@@ -36,22 +36,22 @@ helm repo add magda-io https://charts.magda.io
 
 Kubernetes: `>= 1.14.0-0`
 
-| Repository              | Name         | Version       |
-| ----------------------- | ------------ | ------------- |
-| https://charts.magda.io | magda-common | 1.0.0-alpha.4 |
+| Repository | Name | Version |
+|------------|------|---------|
+| oci://ghcr.io/magda-io/charts | magda-common | 2.1.1 |
 
 ## Values
 
-| Key                          | Type   | Default                                  | Description |
-| ---------------------------- | ------ | ---------------------------------------- | ----------- |
-| defaultAdminUserId           | string | `"00000000-0000-4000-8000-000000000000"` |             |
-| defaultImage.imagePullSecret | bool   | `false`                                  |             |
-| defaultImage.pullPolicy      | string | `"IfNotPresent"`                         |             |
-| defaultImage.repository      | string | `"docker.io/data61"`                     |             |
-| global.image                 | object | `{}`                                     |             |
-| global.minions.image         | object | `{}`                                     |             |
-| global.rollingUpdate         | object | `{}`                                     |             |
-| image.name                   | string | `"magda-minion-linked-data-rating"`      |             |
-| resources.limits.cpu         | string | `"100m"`                                 |             |
-| resources.requests.cpu       | string | `"10m"`                                  |             |
-| resources.requests.memory    | string | `"30Mi"`                                 |             |
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| defaultAdminUserId | string | `"00000000-0000-4000-8000-000000000000"` |  |
+| defaultImage.imagePullSecret | bool | `false` |  |
+| defaultImage.pullPolicy | string | `"IfNotPresent"` |  |
+| defaultImage.repository | string | `"ghcr.io/magda-io"` |  |
+| global.image | object | `{}` |  |
+| global.minions.image | object | `{}` |  |
+| global.rollingUpdate | object | `{}` |  |
+| image.name | string | `"magda-minion-linked-data-rating"` |  |
+| resources.limits.cpu | string | `"100m"` |  |
+| resources.requests.cpu | string | `"10m"` |  |
+| resources.requests.memory | string | `"30Mi"` |  |
