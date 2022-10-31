@@ -18,7 +18,7 @@ const openFormatRegexes = _(formatStars)
     .value();
 
 export default async function onRecordFound(
-    record: Omit<Record, "authnReadPolicyId">,
+    record: Record,
     registry: AuthorizedRegistryClient
 ) {
     const theTenantId = record.tenantId;
@@ -36,7 +36,7 @@ export default async function onRecordFound(
         }))
         .value();
 
-    const processed = distributions.map(distribution => {
+    const processed = distributions.map((distribution) => {
         if (
             distribution.sourceLink &&
             distribution.sourceLink.status == "broken"
@@ -67,9 +67,10 @@ export default async function onRecordFound(
             {
                 stars: best || 0
             },
+            true,
             theTenantId
         )
-        .then(result => unionToThrowable(result));
+        .then((result) => unionToThrowable(result));
 
     const qualityPromise = registry
         .putRecordAspect(
@@ -81,9 +82,10 @@ export default async function onRecordFound(
                     weighting: 1
                 }
             },
+            true,
             theTenantId
         )
-        .then(result => unionToThrowable(result));
+        .then((result) => unionToThrowable(result));
 
     return Promise.all([starsAspectPromise, qualityPromise]).then(() => {});
 }

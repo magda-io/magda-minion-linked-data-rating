@@ -19,7 +19,7 @@ import { encodeURIComponentWithApost } from "@magda/utils";
 import { OKFN_LICENSES, ZERO_STAR_LICENSES, FORMAT_EXAMPLES } from "./examples";
 import { AuthorizedRegistryClient } from "@magda/minion-sdk";
 
-describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) {
+describe("ld rating onRecordFound", function (this: Mocha.Suite) {
     this.timeout(10000);
     nock.disableNetConnect();
     const registryUrl = "http://example.com";
@@ -68,7 +68,7 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
     describe("licenses", () => {
         describe("endorsed by OKFN should get 1 star:", () => {
             OKFN_LICENSES.forEach((license: string) => {
-                it(license, () => {
+                it(license, async () => {
                     const record = buildRecordWithDist({ license });
 
                     expectStarCount({ record, starCount: 1 });
@@ -78,7 +78,7 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
             });
         });
 
-        it("should give fuzzily generated open licenses a star", () => {
+        it("should give fuzzily generated open licenses a star", async () => {
             return runPropertyTest({
                 licenseArb: openLicenseArb,
                 formatArb: jsc.constant(undefined),
@@ -88,7 +88,7 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
             });
         });
 
-        it("should give distribtuions with a broken source-link 0 stars", () => {
+        it("should give distribtuions with a broken source-link 0 stars", async () => {
             return runPropertyTest({
                 recordArb: jsc.suchthat(
                     recordArbWithDistArbs(
@@ -96,7 +96,7 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
                             license: jsc.oneof([
                                 openLicenseArb,
                                 jsc.oneof(
-                                    ZERO_STAR_LICENSES.map(lic =>
+                                    ZERO_STAR_LICENSES.map((lic) =>
                                         jsc.constant(lic)
                                     )
                                 )
@@ -122,7 +122,7 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
                             ])
                         }
                     ),
-                    record =>
+                    (record) =>
                         record.aspects["dataset-distributions"].distributions
                             .length > 0
                 ),
@@ -132,7 +132,7 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
             });
         });
 
-        it("should give distribtuions with a active source-link > 0 stars", () => {
+        it("should give distribtuions with a active source-link > 0 stars", async () => {
             return runPropertyTest({
                 recordArb: jsc.suchthat(
                     recordArbWithDistArbs(
@@ -157,19 +157,19 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
                             ])
                         }
                     ),
-                    record =>
+                    (record) =>
                         record.aspects["dataset-distributions"].distributions
                             .length > 0
                 ),
                 beforeTest: (record: Record) => {
-                    expectStarCount({ record, starCountFn: num => num > 0 });
+                    expectStarCount({ record, starCountFn: (num) => num > 0 });
                 }
             });
         });
 
         describe(`should give 0 stars to datasets with non-open license`, () => {
-            ZERO_STAR_LICENSES.forEach(license => {
-                it(`${license}`, () => {
+            ZERO_STAR_LICENSES.forEach((license) => {
+                it(`${license}`, async () => {
                     const record = buildRecordWithDist({ license });
 
                     expectStarCount({ record, starCount: 0 });
@@ -183,8 +183,8 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
     describe("formats", () => {
         for (let starCount = 2; starCount <= 4; starCount++) {
             describe(`should set ${starCount} stars`, () => {
-                FORMAT_EXAMPLES[starCount].forEach(format => {
-                    it(`for ${format}`, () => {
+                FORMAT_EXAMPLES[starCount].forEach((format) => {
+                    it(`for ${format}`, async () => {
                         const record = buildRecordWithDist({
                             format,
                             license: OKFN_LICENSES[0]
@@ -198,7 +198,7 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
 
                 const formatArbForStarCount = formatArb(starCount);
                 const sample = jsc.sampler(formatArbForStarCount)(1);
-                it(`for fuzzily generated ${starCount} star formats, e.g. "${sample}"`, () => {
+                it(`for fuzzily generated ${starCount} star formats, e.g. "${sample}"`, async () => {
                     return runPropertyTest({
                         licenseArb: openLicenseArb,
                         formatArb: formatArbForStarCount,
@@ -214,7 +214,7 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
     it(`if there's an equivalent format in dcat-distribution-strings and dataset format, the star rating should be the same whether the dataset-format aspect is defined or undefined`, () => {
         const recordArb = jsc.suchthat(
             recordArbWithDistArbs(),
-            record =>
+            (record) =>
                 record.aspects["dataset-distributions"].distributions.length > 0
         );
 
@@ -240,14 +240,14 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
 
                 expectStarCount({
                     record,
-                    starCountFn: num => {
+                    starCountFn: (num) => {
                         starCount1 = num;
                         return true;
                     }
                 });
                 expectStarCount({
                     record: recordWithoutFormatAspect,
-                    starCountFn: num => {
+                    starCountFn: (num) => {
                         starCount2 = num;
                         return true;
                     }
@@ -273,7 +273,9 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
     });
 
     it(`If format is in dcat-distribution-strings, dataset-format takes precedence`, () => {
-        const starNumberArb = jsc.oneof([1, 2, 3, 4].map(x => jsc.constant(x)));
+        const starNumberArb = jsc.oneof(
+            [1, 2, 3, 4].map((x) => jsc.constant(x))
+        );
 
         const starsArb = jsc.record({
             distStrings: starNumberArb,
@@ -282,7 +284,7 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
 
         const everythingArb = arbFlatMap(
             starsArb,
-            starsObj => {
+            (starsObj) => {
                 const thisRecordArb = jsc.suchthat(
                     recordArbWithDistArbs(
                         {
@@ -294,7 +296,7 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
                             format: formatArb(starsObj.formatAspect)
                         }
                     ),
-                    record =>
+                    (record) =>
                         record.aspects["dataset-distributions"].distributions
                             .length > 0
                 );
@@ -304,11 +306,11 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
                     numbers: jsc.constant(starsObj)
                 });
             },
-            x => x.numbers
+            (x) => x.numbers
         );
 
         return jsc.assert(
-            jsc.forall(everythingArb, everything => {
+            jsc.forall(everythingArb, (everything) => {
                 expectStarCount({
                     record: everything.record,
                     starCount: everything.numbers.formatAspect
@@ -319,7 +321,7 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
                         afterEachProperty();
                         return true;
                     })
-                    .catch(e => {
+                    .catch((e) => {
                         afterEachProperty();
                         throw e;
                     });
@@ -350,7 +352,7 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
                                     afterEachProperty();
                                     return true;
                                 })
-                                .catch(e => {
+                                .catch((e) => {
                                     afterEachProperty();
                                     throw e;
                                 });
@@ -375,7 +377,7 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
                     format: formatArb
                 }
             ),
-            record =>
+            (record) =>
                 record.aspects["dataset-distributions"].distributions.length > 0
         ),
         beforeTest = () => {},
@@ -400,7 +402,7 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
                         afterTest();
                         return true;
                     })
-                    .catch(e => {
+                    .catch((e) => {
                         afterEachProperty();
                         throw e;
                     });
@@ -417,7 +419,7 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
     function expectStarCount({
         record,
         starCount,
-        starCountFn = x => x === starCount
+        starCountFn = (x) => x === starCount
     }: StarCountArgs) {
         if (!starCount && !starCountFn) {
             throw new Error("Must provide starCount or starCountFn");
@@ -427,7 +429,7 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
             .put(
                 `/records/${encodeURIComponentWithApost(
                     record.id
-                )}/aspects/dataset-linked-data-rating`,
+                )}/aspects/dataset-linked-data-rating?merge=true`,
                 (obj: any) => starCountFn(obj.stars)
             )
             .reply(201);
@@ -436,7 +438,7 @@ describe("ld rating onRecordFound", function(this: Mocha.ISuiteCallbackContext) 
             .put(
                 `/records/${encodeURIComponentWithApost(
                     record.id
-                )}/aspects/dataset-quality-rating`,
+                )}/aspects/dataset-quality-rating?merge=true`,
                 (obj: any) =>
                     starCountFn(obj["dataset-linked-data-rating"].score * 5)
             )

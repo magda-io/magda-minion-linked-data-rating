@@ -12,8 +12,9 @@ minion({
     aspects: ["dataset-distributions"],
     optionalAspects: ["dataset-format", "source-link-status"],
     writeAspectDefs: [linkedDataAspectDef, datasetQualityAspectDef],
+    dereference: true,
     onRecordFound
-}).catch(e => {
+}).catch((e) => {
     console.error("Error: " + e.message, e);
     process.exit(1);
 });
