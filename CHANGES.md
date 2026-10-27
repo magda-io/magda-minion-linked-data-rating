@@ -1,5 +1,10 @@
 > The repo was part of [magda main repo](https://github.com/magda-io/magda). For history before v1.0.0, please check [CHANGES.md of main repo](https://github.com/magda-io/magda/blob/master/CHANGES.md).
 
+# 2.1.0
+
+- Upgrade to Node.js 22: the docker image now uses `node:22-alpine` (was `node:14-alpine`), and CI uses Node.js 22
+- Upgrade GitHub Actions (checkout, setup-node, setup-qemu & setup-buildx) to current versions
+
 # 2.0.0
 
 - Upgrade to node14
